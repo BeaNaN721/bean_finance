@@ -18,7 +18,7 @@ export class TransactionService {
 
   findAll() {
     return this.transactionRepo.find({
-      order: {createdAt: 'DESC'}
+      order: {recordedAt: 'DESC', createdAt: 'DESC'}
     });
   }
 
@@ -27,7 +27,8 @@ export class TransactionService {
   }
 
   update(id: number, updateTransactionDto: UpdateTransactionDto) {
-    return this.transactionRepo.update(id, updateTransactionDto);
+    const { createdAt, ...data } = updateTransactionDto as any;
+    return this.transactionRepo.update(id, data);
   }
 
   remove(id: number) {

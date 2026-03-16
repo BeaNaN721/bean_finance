@@ -5,6 +5,21 @@ export enum TransactionType {
   EXPENCE = 'expense',
 }
 
+export enum Category {
+  DINING = '餐饮',
+  TRANSPORT = '交通',
+  SHOPPING = '购物',
+  ENTERTAINMENT = '娱乐',
+  HOUSING = '住房',
+  MEDICAL = '医疗',
+  EDUCATION = '教育',
+  COMMUNICATION = '通讯',
+  SALARY = '工资',
+  BONUS = '奖金',
+  INVESTMENT = '投资',
+  OTHER = '其他',
+}
+
 @Entity('transaction')
 export class Transaction {
   @PrimaryGeneratedColumn()
