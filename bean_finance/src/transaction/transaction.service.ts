@@ -16,9 +16,18 @@ export class TransactionService {
     return this.transactionRepo.save(transaction);
   }
 
-  findAll() {
+  async findAll(page: number = 1, limit: number = 20) {
+    const [data, total] = await this.transactionRepo.findAndCount({
+      order: {recordedAt: 'DESC', createdAt: 'DESC'},
+      skip: (page - 1) * limit,
+      take: limit,
+    });
+    return { data, total, page, limit };
+  }
+
+  async exportAll() {
     return this.transactionRepo.find({
-      order: {recordedAt: 'DESC', createdAt: 'DESC'}
+      order: {recordedAt: 'DESC', createdAt: 'DESC'},
     });
   }
 

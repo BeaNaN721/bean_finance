@@ -9,12 +9,23 @@ export interface Transaction {
   recordedAt: string | Date;
 }
 
+export interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
 const api = axios.create({
   baseURL: 'http://localhost:3000',
   timeout: 5000,
 });
 
-export const getTransactions = () => api.get('/transaction');
+export const getTransactions = (page = 1, limit = 20) => 
+  api.get<PaginatedResponse<Transaction>>('/transaction', { params: { page, limit } });
+
+export const exportCsv = () => 
+  api.get('/transaction/export/csv', { responseType: 'blob' });
 
 export const addTransaction = (data: any) => api.post('/transaction', data);
 
